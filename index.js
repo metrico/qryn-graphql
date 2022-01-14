@@ -56,6 +56,35 @@ const resolvers = {
       const response = await axios.get(`${baseURL}/loki/api/v1/query_range?` + string)
       if (debug) console.log('response::::::::', response.data)
       return response.data
+    },
+
+    query: async (parent, args) => {
+      if (debug) console.log('query started')
+      let string = ''
+
+      if (args.query.length > 0) {
+        string += 'query=' + args.query
+        if (debug) console.log(`added to query => ${string}`)
+      }
+
+      if (args.limit !== undefined) {
+        string += '&limit=' + args.limit
+        if (debug) console.log(`added to query => ${string}`)
+      }
+
+      if (args.time !== undefined) {
+        string += '&time=' + args.time
+        if (debug) console.log(`added to query => ${string}`)
+      }
+
+      if (args.direction !== undefined) {
+        string += '&direction=' + args.direction
+        if (debug) console.log(`added to query => ${string}`)
+      }
+
+      const response = await axios.get(`${baseURL}/loki/api/v1/query?` + string)
+      if (debug) console.log('response::::::::', response.data)
+      return response.data
     }
   },
 
@@ -63,7 +92,7 @@ const resolvers = {
     stream: (obj, args) => {
       if (debug) console.log('RESULT is called ::::::::', obj)
       let string = ''
-      for (let key in obj.stream) {
+      for (const key in obj.stream) {
         string += key + '=' + obj.stream[key] + ', '
       }
       return string
