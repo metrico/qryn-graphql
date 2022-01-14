@@ -1,0 +1,24 @@
+type Query {
+  ready: String
+  query_range(query: String!, start:Float, end:Float, limit:Int, direction: String, regex: String ) : clokiData
+}
+
+type clokiData {
+  status: String!
+  data: Data
+}
+
+type Data {
+  resultType: String
+  result: [Result]
+}
+
+type Result {
+  stream: String
+  values: [Object]
+}
+
+type Object {
+  timestamp: String
+  value: String
+}

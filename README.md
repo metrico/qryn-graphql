@@ -10,16 +10,14 @@ All of the below is still subject to change.
 ## Query
 
 Query {
+  query: string
   start: date
   end: date
-  step: integer
   limit: integer
   direction: string
   regex: string
-  query: string
 }
 
-custom date {}
 
 
 return from API
