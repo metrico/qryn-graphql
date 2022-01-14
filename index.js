@@ -2,7 +2,7 @@ const gql = require('graphql-yoga')
 const fs = require('fs')
 const axios = require('axios')
 
-const debug = true
+const debug = false
 
 /* Configuration */
 
@@ -153,6 +153,13 @@ const resolvers = {
     value: (obj, args) => {
       if (debug) console.log('OBJECT is called::::::::', obj)
       return obj[1]
+    }
+  },
+
+  Mutation: {
+    push: (obj, args) => {
+      if (debug) console.log('Push is called::::::::', args)
+      if (debug) console.log('Not yet implemented')
     }
   }
 
