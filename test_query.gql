@@ -1,0 +1,51 @@
+query ready {
+  ready {
+    capabilities {
+      LIVE_mode
+    }
+  }
+
+  hello {
+    capabilities {
+      LIVE_mode
+    }
+  }
+
+  labels{
+    data
+  }
+  http: label(name:"http"){
+    data
+  }
+  service: label(name:"serviceName"){
+    data
+  }
+
+  query_range (query:"{http=\"correct\"}", start:1642186328498000000, end:1642187228498000000, limit:1000) {
+    status
+    data {
+      resultType
+      result {
+        stream
+        values {
+          timestamp
+          value
+        }
+      }
+    }
+  }
+
+  query (query:"{http=\"correct\"}", time:1000) {
+    status
+    data {
+      resultType
+      result {
+        stream
+        values {
+          timestamp
+          value
+        }
+      }
+    }
+  }
+}

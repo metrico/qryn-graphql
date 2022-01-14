@@ -113,6 +113,24 @@ const resolvers = {
       const response = await axios.get(`${baseURL}/loki/api/v1/labels?` + string)
       if (debug) console.log('response::::::::', response.data)
       return response.data
+    },
+
+    label: async (obj, args) => {
+      if (debug) console.log('Label query is started')
+      let string = ''
+
+      if (args.start !== undefined) {
+        string += 'start=' + args.start
+        if (debug) console.log(`added to query => ${string}`)
+      }
+
+      if (args.end !== undefined) {
+        string += '&end=' + args.end
+        if (debug) console.log(`added to query => ${string}`)
+      }
+      const response = await axios.get(`${baseURL}/loki/api/v1/label/${args.name}/values?` + string)
+      if (debug) console.log('response::::::::', response.data)
+      return response.data
     }
   },
 

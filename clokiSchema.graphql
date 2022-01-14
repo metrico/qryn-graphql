@@ -4,7 +4,7 @@ type Query {
   query_range(query: String!, limit:Int, start:Float, end:Float, step:Float, direction: String, regex: String ) : ClokiData
   query(query: String!, limit:Int, time:Float, direction:String ) : ClokiData
   labels(start:Float, end:Float): LabelData
-  label(id:ID!): String
+  label(name:String!, start:Float, end:Float): LabelData
 }
 
 type Capabilities {
