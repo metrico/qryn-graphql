@@ -17,7 +17,17 @@ const typeDefs = fs.readFileSync('clokiSchema.graphql', 'utf8')
 /* Graph QL Setup - Resolvers */
 const resolvers = {
   Query: {
-    ready: () => 'It\'s a go!',
+    ready: async () => {
+      const response = await axios.get(`${baseURL}/ready`)
+      if (debug) console.log('response::::::::', response.data)
+      return response.data
+    },
+
+    hello: async () => {
+      const response = await axios.get(`${baseURL}/hello`)
+      if (debug) console.log('response::::::::', response.data)
+      return response.data
+    },
 
     query_range: async (parent, args) => {
       if (debug) console.log('query_range query started')
@@ -85,6 +95,24 @@ const resolvers = {
       const response = await axios.get(`${baseURL}/loki/api/v1/query?` + string)
       if (debug) console.log('response::::::::', response.data)
       return response.data
+    },
+
+    labels: async (obj, args) => {
+      if (debug) console.log('Label query is started')
+      let string = ''
+
+      if (args.start !== undefined) {
+        string += 'start=' + args.start
+        if (debug) console.log(`added to query => ${string}`)
+      }
+
+      if (args.end !== undefined) {
+        string += '&end=' + args.end
+        if (debug) console.log(`added to query => ${string}`)
+      }
+      const response = await axios.get(`${baseURL}/loki/api/v1/labels?` + string)
+      if (debug) console.log('response::::::::', response.data)
+      return response.data
     }
   },
 
@@ -109,6 +137,7 @@ const resolvers = {
       return obj[1]
     }
   }
+
 }
 
 const server = gql.createServer({

@@ -1,10 +1,21 @@
 type Query {
-  ready: String
-  query_range(query: String!, limit:Int, start:Float, end:Float, step:Float, direction: String, regex: String ) : clokiData
-  query(query: String!, limit:Int, time:Float, direction:String ) : clokiData
+  ready: Capabilities
+  hello: Capabilities
+  query_range(query: String!, limit:Int, start:Float, end:Float, step:Float, direction: String, regex: String ) : ClokiData
+  query(query: String!, limit:Int, time:Float, direction:String ) : ClokiData
+  labels(start:Float, end:Float): LabelData
+  label(id:ID!): String
 }
 
-type clokiData {
+type Capabilities {
+  capabilities: Live
+}
+
+type Live {
+  LIVE_mode: String
+}
+
+type ClokiData {
   status: String!
   data: Data
 }
@@ -22,4 +33,9 @@ type Result {
 type Object {
   timestamp: String
   value: String
+}
+
+type LabelData {
+  status: String!
+  data: [String]
 }
