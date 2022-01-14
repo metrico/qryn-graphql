@@ -71,11 +71,11 @@ query simple {
 
 ## API Coverage
 
-*[ ] /loki/api/v1/push
-*[X] /loki/api/v1/query
-*[X] /loki/api/v1/query_range
-*[X] /loki/api/v1/label
-*[X] /loki/api/v1/label/name/values
-*[ ] /loki/api/v1/tail
-*[ ] /hello
-*[ ] /ready
+* [ ] /loki/api/v1/push
+* [X] /loki/api/v1/query
+* [X] /loki/api/v1/query_range
+* [X] /loki/api/v1/label
+* [X] /loki/api/v1/label/name/values
+* [ ] /loki/api/v1/tail
+* [X] /hello
+* [X] /ready
