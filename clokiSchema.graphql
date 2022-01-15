@@ -39,7 +39,3 @@ type LabelData {
   status: String!
   data: [String]
 }
-
-type Mutation {
-  push()
-}
