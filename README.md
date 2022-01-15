@@ -26,14 +26,19 @@ Modify the config.json file to point to your cLoki instance of choice:
 }
 ```
 
+Start the service:
+```
+npm start
+```
+
 ## Usage
 
-Start the service to access the local GraphQL IDE/API:
+Aaccess the local GraphQL IDE/API:
 ```
 http://localhost:4000
 ```
 
-To play around with some of the basic logQL queries use below:
+Play around with a basic Graph-LogQL queries:
 
 ```
 // to render all the available fields
