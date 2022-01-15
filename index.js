@@ -154,13 +154,6 @@ const resolvers = {
       if (debug) console.log('OBJECT is called::::::::', obj)
       return obj[1]
     }
-  },
-
-  Mutation: {
-    push: (obj, args) => {
-      if (debug) console.log('Push is called::::::::', args)
-      if (debug) console.log('Not yet implemented')
-    }
   }
 
 }
