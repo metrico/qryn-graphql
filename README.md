@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/1423657/147935343-598c7dfd-1412-4bad-9ac6-636994810443.png" width=220 />
+<img src="https://user-images.githubusercontent.com/1423657/147935343-598c7dfd-1412-4bad-9ac6-636994810443.png" width=220 /><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--nkU0GvK3--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.postimg.cc/SQCCBw0Q/graphql-with-text-small.png" width=150>
 
 # cloki-graphql
 GraphQL Overlay for the cLoki/LogQL API
@@ -28,7 +28,7 @@ Modify the config.json file to point to your cLoki instance of choice:
 
 ## Usage
 
-Once you start the service, navigate to
+Start the service to access the local GraphQL IDE/API:
 ```
 http://localhost:4000
 ```
@@ -36,8 +36,7 @@ http://localhost:4000
 To play around with some of the basic logQL queries use below:
 
 ```
-
-// to see all the available fields
+// to render all the available fields
 query range {
   query_range (query:"{label=\"value\"}", start:1641591598081000000, end:1642196398081000000, limit:1000) {
     status
@@ -54,8 +53,7 @@ query range {
   }
 }
 
-// or to see just the values
-
+// or to render just the values
 query simple {
   query_range (query:"{label=\"value\"}", start:1641591598081000000, end:1642196398081000000, limit:1000) {
     data {
