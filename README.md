@@ -1,7 +1,7 @@
 <img src="https://user-images.githubusercontent.com/1423657/147935343-598c7dfd-1412-4bad-9ac6-636994810443.png" width=220 /><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--nkU0GvK3--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.postimg.cc/SQCCBw0Q/graphql-with-text-small.png" width=150>
 
 # cloki-graphql
-GraphQL Overlay for the cLoki/LogQL API
+GraphQL Overlay for the [cLoki](https://cloki.org) LogQL API
 
 
 Use GraphQL to query cLoki saved logs. With some extension of the schema and the code you could easily use cLoki to build websites, visualization backends or other great applications. ( {sky:"limit"} )
