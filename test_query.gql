@@ -49,3 +49,14 @@ query ready {
     }
   }
 }
+
+mutation {
+  addData(tags: [{
+      key: "graphQL",
+      value: "test"
+    },
+    {
+      key: "test",
+      value: "log"
+      }], data: "{\"logId\":\"test123\",\"value\":12}")
+}

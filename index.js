@@ -2,7 +2,7 @@ const gql = require('graphql-yoga')
 const fs = require('fs')
 const axios = require('axios')
 
-const debug = false
+const debug = process.argv[2]
 
 /* Configuration */
 
@@ -141,6 +141,7 @@ const resolvers = {
       for (const key in obj.stream) {
         string += key + '=' + obj.stream[key] + ', '
       }
+      string = string.slice(0, -2)
       return string
     }
   },
@@ -154,6 +155,48 @@ const resolvers = {
       if (debug) console.log('OBJECT is called::::::::', obj)
       return obj[1]
     }
+  },
+
+  Mutation: {
+    addData: async (obj, args) => {
+      if (debug) console.log('Mutation is called:::::::', obj, args)
+      // insert data to cloki and query for the inserted tags
+      const timestamp = (Date.now() * 1000000).toString()
+      const dataObject = {}
+      dataObject.streams = []
+      const value = [timestamp, args.data]
+      if (debug) console.log('value ::: ', value)
+      const stream = {}
+      for (const item of args.tag) {
+        console.log('ITEM :::::::', item)
+        stream[item.key] = item.value
+      }
+      if (debug) console.log('stream ::: ', stream)
+      const streamObject = {
+        stream: stream,
+        values: [value]
+      }
+      dataObject.streams.push(streamObject)
+      if (debug) console.log('Object ready for insert', dataObject)
+      const response = await axios.post(`${baseURL}/loki/api/v1/push`, dataObject, {
+        headers: { 'Content-Type': 'application/json' }
+      })
+      if (debug) console.log('response ::::', response.data)
+
+      let string = ''
+      string += 'query={'
+      for (const item of args.tag) {
+        console.log('ITEM :::::::', item)
+        string += item.key + '=' + '"' + item.value + '",'
+      }
+      string = string.slice(0, -1)
+      string += '}'
+      if (debug) console.log(`added to query => ${string}`)
+
+      const returned = await axios.get(`${baseURL}/loki/api/v1/query_range?` + string)
+      if (debug) console.log('response::::::::', returned.data)
+      return returned.data
+    }
   }
 
 }
@@ -164,5 +207,5 @@ const server = gql.createServer({
 })
 
 server.start(() => {
-  console.log('Server started on Port 4000')
+  console.log('Server started on Port 4000', debug)
 })
