@@ -39,3 +39,12 @@ type LabelData {
   status: String!
   data: [String]
 }
+
+type Mutation {
+  addData (tag: [Tag!], data: String!): ClokiData
+}
+
+input Tag {
+  key: String
+  value: String
+}
