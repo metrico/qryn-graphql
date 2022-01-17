@@ -33,7 +33,7 @@ npm start
 
 ## Usage
 
-Aaccess the local GraphQL IDE/API:
+Access the local GraphQL IDE/API:
 ```
 http://localhost:4000
 ```
