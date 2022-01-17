@@ -70,15 +70,40 @@ query simple {
     }
   }
 }
+
+// or insert Data one item at a time via mutation / this will return the last inserted data objects
+mutation insert {
+  addData(tags: [{
+      key: "graphQL",
+      value: "test"
+    },
+    {
+      key: "test",
+      value: "log"
+    }],
+    data: "{\"logId\":\"test123\",\"value\":12}") {
+    status
+    data {
+      result {
+        stream
+        values {
+          timestamp
+          value
+        }
+      }
+    }
+  }
+}
+
 ```
 
 ## API Coverage
 
-* [ ] /loki/api/v1/push
+* [X] /loki/api/v1/push
 * [X] /loki/api/v1/query
 * [X] /loki/api/v1/query_range
 * [X] /loki/api/v1/label
 * [X] /loki/api/v1/label/name/values
-* [ ] /loki/api/v1/tail
+* [ ] /loki/api/v1/tail --> Dynamic Tailing will not be able to be supported at this time
 * [X] /hello
 * [X] /ready
