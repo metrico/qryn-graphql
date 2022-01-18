@@ -168,7 +168,7 @@ const resolvers = {
       if (debug) console.log('value ::: ', value)
       const stream = {}
       for (const item of args.tag) {
-        console.log('ITEM :::::::', item)
+        if (debug) console.log('ITEM :::::::', item)
         stream[item.key] = item.value
       }
       if (debug) console.log('stream ::: ', stream)
@@ -186,7 +186,7 @@ const resolvers = {
       let string = ''
       string += 'query={'
       for (const item of args.tag) {
-        console.log('ITEM :::::::', item)
+        if (debug) console.log('ITEM :::::::', item)
         string += item.key + '=' + '"' + item.value + '",'
       }
       string = string.slice(0, -1)
@@ -207,5 +207,5 @@ const server = gql.createServer({
 })
 
 server.start(() => {
-  console.log('Server started on Port 4000', debug)
+  console.log('Server started on Port 4000', debug || ' - Production Mode')
 })
