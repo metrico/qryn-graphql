@@ -41,10 +41,15 @@ type LabelData {
 }
 
 type Mutation {
-  addData (tag: [Tag!], data: String!): ClokiData
+  addData (tag: [Tag!], data: Todo!): ClokiData
 }
 
 input Tag {
   key: String
   value: String
+}
+
+input Todo {
+  uuid: String,
+  description: String
 }

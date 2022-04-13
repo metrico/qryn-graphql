@@ -1,4 +1,6 @@
 const gql = require('graphql-yoga')
+const express = require('express')
+const cors = require('cors')
 const fs = require('fs')
 const axios = require('axios')
 
@@ -164,7 +166,11 @@ const resolvers = {
       const timestamp = (Date.now() * 1000000).toString()
       const dataObject = {}
       dataObject.streams = []
-      const value = [timestamp, args.data]
+      const valueObject = {
+        uuid: args.data.uuid,
+        description: args.data.description
+      }
+      const value = [timestamp, JSON.stringify(valueObject)]
       if (debug) console.log('value ::: ', value)
       const stream = {}
       for (const item of args.tag) {
@@ -190,10 +196,10 @@ const resolvers = {
         string += item.key + '=' + '"' + item.value + '",'
       }
       string = string.slice(0, -1)
-      string += '}'
+      string += '}&time=100000'
       if (debug) console.log(`added to query => ${string}`)
 
-      const returned = await axios.get(`${baseURL}/loki/api/v1/query_range?` + string)
+      const returned = await axios.get(`${baseURL}/loki/api/v1/query?` + string)
       if (debug) console.log('response::::::::', returned.data)
       return returned.data
     }
@@ -201,11 +207,22 @@ const resolvers = {
 
 }
 
+const app = express()
+
+app.use(
+  cors({
+    origin: 'http://localhost',
+    credentials: true
+  })
+)
+
 const server = gql.createServer({
   typeDefs: typeDefs,
   resolvers: resolvers
 })
 
-server.start(() => {
+app.use('/graphql', server.requestListener)
+
+app.listen(4000, () => {
   console.log('Server started on Port 4000', debug || ' - Production Mode')
 })
